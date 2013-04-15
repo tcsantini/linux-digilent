@@ -1,0 +1,51 @@
+#
+# Xillybus device configuration
+#
+
+config XILLYBUS
+	tristate "Xillybus Support"
+	default m
+	help
+	  Xillybus is a generic interface for peripherals designed on
+	  programmable logic (FPGA). The driver probes the hardware for
+	  its capabilities, and creates device files accordingly.
+
+	  If you don't know what this is, you probably don't need it:
+	  Say N.
+
+config XILLYBUS_PCIE
+	bool "Xillybus over PCIe"
+	depends on XILLYBUS
+	depends on PCI
+	default n
+	help
+	  Set to Y if you want Xillybus to use PCI Express for communicating
+	  with the FPGA. This option is harmless, but it requires PCI
+	  support on the kernel. Say Y if the target processor supports
+	  PCI and/or PCIe.
+
+config XILLYBUS_OF
+	bool "Xillybus over Device Tree"
+	depends on XILLYBUS
+	depends on OF_ADDRESS
+	depends on OF_DEVICE
+	depends on OF_IRQ
+	default y
+	help
+	  Set to Y if you want Xillybus to find its resources from the
+	  Open Firmware Flattened Device Tree. If the target is an embedded
+	  system, say Y.  This option is harmless, but it requires Device
+	  Tree support on the kernel, which is usually not the case for
+	  kernels for fullblown computers.
+
+config XILLYBUS_LITE_OF
+	tristate "Xillybus Lite over Device Tree"
+	depends on XILLYBUS
+	depends on OF_ADDRESS
+	depends on OF_DEVICE
+	depends on OF_IRQ
+	depends on UIO
+	default m
+	help
+	  Set to M to activate Xillybus Lite finding its resources from
+	  Open Firmware Flattened Device Tree.

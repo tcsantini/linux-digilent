@@ -2455,10 +2455,15 @@ static int __devinit xslcr_probe(struct platform_device *pdev)
 	/* unlock the SLCR so that registers can be changed */
 	xslcr_writereg(slcr->regs + XSLCR_UNLOCK, 0xDF0D);
 
+	/*
+	 * FIXME: Hard coded the clock frequency settings
+	 * instead of getting them from the device tree.
+	 */
+
 	xslcr_writereg(slcr->regs + XSLCR_FPGA0_CLK_CTRL_OFFSET, 0x100a00);
-	xslcr_writereg(slcr->regs + XSLCR_FPGA1_CLK_CTRL_OFFSET, 0x100500);
-	xslcr_writereg(slcr->regs + XSLCR_FPGA2_CLK_CTRL_OFFSET, 0x100700);
-	xslcr_writereg(slcr->regs + XSLCR_FPGA3_CLK_CTRL_OFFSET, 0x102900);
+	xslcr_writereg(slcr->regs + XSLCR_FPGA1_CLK_CTRL_OFFSET, 0x100a00);
+	xslcr_writereg(slcr->regs + XSLCR_FPGA2_CLK_CTRL_OFFSET, 0x101400);
+	xslcr_writereg(slcr->regs + XSLCR_FPGA3_CLK_CTRL_OFFSET, 0x101400);
 	xslcr_writereg(slcr->regs + XSLCR_MIO_PIN(50), 0x200);
 	xslcr_writereg(slcr->regs + XSLCR_MIO_PIN(51), 0x200);
 
